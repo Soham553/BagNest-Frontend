@@ -1,0 +1,331 @@
+@import "tailwindcss";
+
+/*
+ * ─────────────────────────────────────────────
+ *  BAGNEST — LUXE LIGHT DESIGN SYSTEM
+ *  Clean white e-commerce aesthetic
+ *  Soft ivory surfaces + violet-indigo + champagne gold
+ * ─────────────────────────────────────────────
+ */
+
+@theme {
+  /* ── surfaces ── */
+  --color-page: #f7f7fb;
+  --color-card: #ffffff;
+  --color-raised: #f0f0f6;
+  --color-glass: rgba(255, 255, 255, 0.72);
+
+  /* ── text ── */
+  --color-fg: #1a1a2e;
+  --color-fg-2: #3a3a52;
+  --color-fg-3: #6e6e8a;
+  --color-fg-4: #a0a0b8;
+
+  /* ── borders ── */
+  --color-edge: rgba(0, 0, 0, 0.06);
+  --color-edge-2: rgba(0, 0, 0, 0.10);
+  --color-edge-3: rgba(0, 0, 0, 0.15);
+
+  /* ── primary accent (violet-indigo) ── */
+  --color-act: #7c5cfc;
+  --color-act-hover: #6a48f0;
+  --color-act-glow: rgba(124, 92, 252, 0.18);
+  --color-act-ring: rgba(124, 92, 252, 0.25);
+  --color-act-subtle: rgba(124, 92, 252, 0.06);
+
+  /* ── gold / champagne (price, premium highlights) ── */
+  --color-gold: #b8860b;
+  --color-gold-dim: #9a7209;
+  --color-gold-bg: rgba(184, 134, 11, 0.06);
+
+  /* ── status ── */
+  --color-err: #ef4444;
+  --color-err-bg: rgba(239, 68, 68, 0.06);
+  --color-err-glow: rgba(239, 68, 68, 0.12);
+  --color-ok: #22c55e;
+  --color-ok-bg: rgba(34, 197, 94, 0.06);
+
+  /* ── social ── */
+  --color-wa: #25d366;
+  --color-wa-h: #1fba59;
+
+  /* ── shadows (soft, premium) ── */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.07), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 20px -4px var(--color-act-glow);
+  --shadow-card-hover: 0 16px 48px -8px rgba(0, 0, 0, 0.10), 0 0 20px -4px var(--color-act-glow);
+  --shadow-gold-glow: 0 0 16px -4px rgba(184, 134, 11, 0.15);
+
+  /* ── radii ── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ── font ── */
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* ── motion ── */
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --ease-spring: cubic-bezier(.22, 1, .36, 1);
+  --ease-bounce: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* ── reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-page);
+  color: var(--color-fg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  /* subtle radial gradient overlay for depth */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(124, 92, 252, 0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(184, 134, 11, 0.02) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: var(--color-act);
+  color: #fff;
+}
+
+/* ── scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+/* ── focus ring ── */
+:focus-visible {
+  outline: 2px solid var(--color-act);
+  outline-offset: 2px;
+}
+
+/* ─────────── KEYFRAMES ─────────── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 12px -2px var(--color-act-glow);
+  }
+
+  50% {
+    box-shadow: 0 0 24px -2px var(--color-act-glow);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─────────── UTILITIES ─────────── */
+.u-fade-in {
+  animation: fade-in .4s var(--ease) both;
+}
+
+.u-fade-up {
+  animation: fade-up .5s var(--ease-spring) both;
+}
+
+.u-scale-in {
+  animation: scale-in .35s var(--ease-spring) both;
+}
+
+.u-slide-dn {
+  animation: slide-down .3s var(--ease) both;
+}
+
+.u-shimmer {
+  background: linear-gradient(90deg, #ededf3 30%, #e0e0ea 50%, #ededf3 70%);
+  background-size: 300% 100%;
+  animation: shimmer 1.8s ease infinite;
+}
+
+.u-glow-pulse {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+.u-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* glassmorphism panel — light version */
+.u-glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid var(--color-edge);
+}
+
+/* animated gradient mesh background helper */
+.u-gradient-mesh {
+  background: linear-gradient(-45deg, rgba(124, 92, 252, 0.06), rgba(184, 134, 11, 0.03), rgba(124, 92, 252, 0.04), rgba(34, 197, 94, 0.02));
+  background-size: 400% 400%;
+  animation: gradient-shift 12s ease infinite;
+}
+
+/* stagger children entrance */
+.u-stagger>* {
+  animation: fade-up .45s var(--ease-spring) both;
+}
+
+.u-stagger>*:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.u-stagger>*:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.u-stagger>*:nth-child(3) {
+  animation-delay: 120ms;
+}
+
+.u-stagger>*:nth-child(4) {
+  animation-delay: 180ms;
+}
+
+.u-stagger>*:nth-child(5) {
+  animation-delay: 240ms;
+}
+
+.u-stagger>*:nth-child(6) {
+  animation-delay: 300ms;
+}
+
+.u-stagger>*:nth-child(7) {
+  animation-delay: 360ms;
+}
+
+.u-stagger>*:nth-child(8) {
+  animation-delay: 420ms;
+}
+
+.u-stagger>*:nth-child(9) {
+  animation-delay: 480ms;
+}
+
+.u-stagger>*:nth-child(10) {
+  animation-delay: 540ms;
+}
+
+.u-stagger>*:nth-child(11) {
+  animation-delay: 600ms;
+}
+
+.u-stagger>*:nth-child(12) {
+  animation-delay: 660ms;
+}
