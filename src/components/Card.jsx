@@ -78,7 +78,7 @@ function ProductCard({ name, price, image, height, width, num_of_pockets, onImag
           <LinkButton
             variant="wa"
             size="sm"
-            href={`https://wa.me/${waNumber}?text=${msg}`}
+            href={`https://api.whatsapp.com/send?phone=${waNumber}&text=${msg}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 text-xs"
