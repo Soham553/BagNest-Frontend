@@ -8,16 +8,19 @@ export const Audit = () => {
   const [loading, setloading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/bagnest/products")
+    fetch(`${import.meta.env.VITE_API_URL}/bagnest/products`)
       .then(res => res.json())
-      .then(data => { setproducts(data.Products); setloading(false); });
+      .then(data => {
+        setproducts(Array.isArray(data) ? data : data.Products || []);
+        setloading(false);
+      });
   }, []);
 
   const deleteProduct = async (id) => {
     console.log(id);
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (!confirmDelete) return;
-    await fetch(`http://localhost:3000/bagnest/products/${id}`, { method: "DELETE" });
+    await fetch(`${import.meta.env.VITE_API_URL}/bagnest/products/${id}`, { method: "DELETE" });
     setproducts(products.filter(p => p._id !== id));
   };
   if (loading)

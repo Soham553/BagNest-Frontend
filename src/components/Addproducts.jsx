@@ -11,7 +11,7 @@ export const Addproduct = () => {
   const [image, setimage] = useState(null);
   const [height, setHeight] = useState("");
   const [width, setWidth] = useState("");
-  const [no_of_pocket, setPockets] = useState("");
+  const [no_of_pockets, setPockets] = useState("");
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -35,18 +35,27 @@ export const Addproduct = () => {
     formData.append("image", image);
     formData.append("height", height);
     formData.append("width", width);
-    formData.append("no_of_pockets", no_of_pocket);
+    formData.append("no_of_pockets", no_of_pockets);
 
     try {
-      const res = await fetch("http://127.0.0.1:3000/bagnest/upload", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/bagnest/upload`, {
         method: "Post",
         body: formData
       });
       const data = await res.json();
       console.log(data);
-      alert("Product added successfully!");
-      setName(""); setPrice(""); setimage(null); setHeight("");
-      setWidth(""); setPockets(""); setImagePreview(null);
+      if (res.status == 201) {
+        alert("Product added successfully!");
+      } else {
+        alert("Something went wrong");
+      }
+      setName("");
+      setPrice("");
+      setimage(null);
+      setHeight("");
+      setWidth("");
+      setPockets("");
+      setImagePreview(null);
     } catch (error) {
       console.error(error);
       alert("Failed to add product. Please try again.");
@@ -59,7 +68,7 @@ export const Addproduct = () => {
     <div className="min-h-screen bg-page py-12 sm:py-16">
       <div className="max-w-lg mx-auto px-5 u-fade-up">
         <button
-          onClick={() => navigate("/admin")}
+          onClick={() => navigate("/admin", { state: { refresh: true } })}
           className="group inline-flex items-center gap-2 text-[13px] font-medium text-fg-3 hover:text-act transition-colors mb-8"
         >
           <ArrowLeftIcon className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
@@ -106,7 +115,7 @@ export const Addproduct = () => {
             <Input label="Width (cm)" required type="number" placeholder="30" value={width} onChange={e => setWidth(e.target.value)} min="0" />
           </div>
 
-          <Input label="Pockets" required type="number" placeholder="5" value={no_of_pocket} onChange={e => setPockets(e.target.value)} min="0" />
+          <Input label="Pockets" required type="number" placeholder="5" value={no_of_pockets} onChange={e => setPockets(e.target.value)} min="0" />
 
           {/* submit */}
           <div className="pt-2">

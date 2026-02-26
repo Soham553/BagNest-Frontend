@@ -13,7 +13,7 @@ export const UpdateProduct = () => {
     const [image, setimage] = useState(null);
     const [height, setHeight] = useState(product?.height || "");
     const [width, setWidth] = useState(product?.width || "");
-    const [num_of_pockets, setPockets] = useState(product?.no_of_pockets || "");
+    const [no_of_pockets, setPockets] = useState(product?.no_of_pockets || "");
     const [loading, setLoading] = useState(false);
     const [imagePreview, setImagePreview] = useState(product?.image || null);
 
@@ -36,7 +36,7 @@ export const UpdateProduct = () => {
         formData.append("price", price);
         formData.append("height", height);
         formData.append("width", width);
-        formData.append("no_of_pockets", num_of_pockets);
+        formData.append("no_of_pockets", no_of_pockets);
 
         if (image) {
             formData.append("image", image);
@@ -44,7 +44,7 @@ export const UpdateProduct = () => {
 
         try {
             const res = await fetch(
-                `http://localhost:3000/bagnest/products/${product._id}`,
+                `${import.meta.env.VITE_API_URL}/bagnest/products/${product._id}`,
                 {
                     method: "PUT",
                     body: formData,   // ✅ SEND FORMDATA
@@ -134,7 +134,7 @@ export const UpdateProduct = () => {
                         <Input label="Width (cm)" required type="number" placeholder="30" value={width} onChange={e => setWidth(e.target.value)} min="0" />
                     </div>
 
-                    <Input label="Pockets" required type="number" placeholder="5" value={num_of_pockets} onChange={e => setPockets(e.target.value)} min="0" />
+                    <Input label="Pockets" required type="number" placeholder="5" value={no_of_pockets} onChange={e => setPockets(e.target.value)} min="0" />
                     <div className="pt-2">
                         <Button
                             type="submit"

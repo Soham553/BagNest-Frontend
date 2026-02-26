@@ -37,14 +37,15 @@ function CardSkeleton() {
     </div>
   );
 }
-function ProductCard({ name, price, image, height, width, no_of_pockets, onImageClick }) {
-  const waNumber = "91XXXXXXXXXX";
+function ProductCard({ name, price, image, height, width, num_of_pockets, onImageClick }) {
+  const waNumber = `${import.meta.env.waNumber}`;
   const igLink = "https://instagram.com/yourpage";
   const msg = encodeURIComponent(
     `I want to buy this product\n\nProduct: ${name}\nPrice: ₹${price}\nImage: ${image}`
   );
 
   return (
+    console.log(num_of_pockets),
     <article className="group bg-card rounded-[var(--radius-xl)] border border-edge overflow-hidden transition-all duration-400 hover:border-edge-2 hover:shadow-card-hover hover:-translate-y-1">
       <div
         className="relative aspect-[4/5] bg-raised overflow-hidden cursor-pointer"
@@ -66,11 +67,11 @@ function ProductCard({ name, price, image, height, width, no_of_pockets, onImage
           <span className="text-[13px] font-semibold text-gold-dim mr-0.5">₹</span>
           {price}
         </p>
-        {(height || width || no_of_pockets != null) && (
+        {(height || width || num_of_pockets != null) && (
           <div className="flex flex-wrap gap-1.5">
             {height && <Badge>{height} cm H</Badge>}
             {width && <Badge>{width} cm W</Badge>}
-            {no_of_pockets != null && <Badge>{no_of_pockets} pockets</Badge>}
+            {num_of_pockets != null && <Badge>{num_of_pockets} pockets</Badge>}
           </div>
         )}
         <div className="flex gap-2 pt-1">
@@ -106,7 +107,7 @@ export default function ProductCards() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/bagnest/products")
+    fetch(`${import.meta.env.VITE_API_URL}/bagnest/products`)
       .then(r => {
         if (!r.ok) throw new Error("Failed to fetch products");
         return r.json();
@@ -114,6 +115,7 @@ export default function ProductCards() {
       .then(d => {
         setItems(Array.isArray(d.Products) ? d.Products : []);
         setLoading(false);
+        console.log(d);
       })
       .catch(e => {
         setError(e.message);
@@ -171,7 +173,7 @@ export default function ProductCards() {
               image={p.image}
               height={p.height}
               width={p.width}
-              no_of_pockets={p.no_of_pockets}
+              num_of_pockets={p.num_of_pockets}
               onImageClick={(src, alt) => setLightbox({ src, alt })}
             />
           ))}
