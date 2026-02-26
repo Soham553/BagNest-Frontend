@@ -39,7 +39,7 @@ function CardSkeleton() {
 }
 function ProductCard({ name, price, image, height, width, num_of_pockets, onImageClick }) {
   const waNumber = `${import.meta.env.VITE_wsnum}`;
-  const igLink = "https://instagram.com/yourpage";
+  const igLink = "https://instagram.com/sakhare553";
   const msg = encodeURIComponent(
     `I want to buy this product\n\nProduct: ${name}\nPrice: ₹${price}\nImage: ${image}`
   );
