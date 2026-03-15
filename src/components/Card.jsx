@@ -107,7 +107,7 @@ export default function ProductCards() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/bagnest/products`)
+    fetch(`${import.meta.env.VITE_API_URL}/bagnest/products?page=${page}&limit=8`)
       .then(r => {
         if (!r.ok) throw new Error("Failed to fetch products");
         return r.json();
@@ -179,6 +179,22 @@ export default function ProductCards() {
           ))}
         </div>
       </section>
+      <div className="flex gap-3 justify-center mt-10">
+        <button
+          onClick={() => fetchProducts(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>Page {currentPage}</span>
+
+        <button
+          onClick={() => fetchProducts(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
 
       {/* ── Image Lightbox ── */}
       {lightbox && (
