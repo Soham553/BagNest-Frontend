@@ -8,21 +8,24 @@ export const Addproduct = () => {
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [image, setimage] = useState(null);
+  const [image, setimage] = useState([]);
   const [height, setHeight] = useState("");
   const [width, setWidth] = useState("");
   const [no_of_pockets, setPockets] = useState("");
   const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState([]);
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const file = Array.from(e.target.files);
+
     setimage(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setImagePreview(reader.result);
-      reader.readAsDataURL(file);
-    }
+
+    const previews = file.map(file =>
+      URL.createObjectURL(file)
+    );
+
+    setImagePreview(previews)
+
   };
 
   const handleSubmit = async (e) => {
@@ -84,17 +87,19 @@ export const Addproduct = () => {
             <label className="block text-[13px] font-medium text-fg-2 mb-2">
               Product Image <span className="text-act">*</span>
             </label>
-            {imagePreview ? (
-              <div className="relative rounded-[var(--radius-lg)] overflow-hidden border border-edge">
-                <img src={imagePreview} alt="Preview" className="w-full h-52 object-contain bg-raised p-5" />
-                <button
-                  type="button"
-                  onClick={() => { setimage(null); setImagePreview(null); }}
-                  className="absolute top-3 right-3 h-8 px-3 rounded-[var(--radius-md)] bg-page/90 backdrop-blur-sm border border-edge text-fg text-[11px] font-semibold hover:bg-raised transition-all"
-                >
-                  Remove
-                </button>
-              </div>
+            {imagePreview && imagePreview.length > 0 ? (
+              imagePreview.map((src, index) => (
+                <div key={index} className="relative rounded-[var(--radius-lg)] overflow-hidden border border-edge">
+                  <img src={src} alt="Preview" className="w-full h-52 object-contain bg-raised p-5" />
+                  <button
+                    type="button"
+                    onClick={() => { setimage([]); setImagePreview([]); }}
+                    className="absolute top-3 right-3 h-8 px-3 rounded-[var(--radius-md)] bg-page/90 backdrop-blur-sm border border-edge text-fg text-[11px] font-semibold hover:bg-raised transition-all"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))
             ) : (
               <label className="flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-edge rounded-[var(--radius-lg)] cursor-pointer hover:border-act/50 hover:bg-raised transition-all duration-300 group">
                 <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-act-subtle border border-act/15 flex items-center justify-center mb-3 group-hover:shadow-glow transition-shadow duration-300">
@@ -102,7 +107,7 @@ export const Addproduct = () => {
                 </div>
                 <span className="text-[13px] font-medium text-fg-3 group-hover:text-fg transition-colors">Click to upload</span>
                 <span className="text-[11px] text-fg-4 mt-1">PNG, JPG, WEBP up to 10 MB</span>
-                <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} required />
+                <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} required multiple />
               </label>
             )}
           </div>
