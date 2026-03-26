@@ -6,6 +6,7 @@ import { Button, EmptyState, Spinner, Skeleton } from "./ui";
 export const Audit = () => {
   const [products, setproducts] = useState([]);
   const [loading, setloading] = useState(true);
+  const [currentImage, setcurrentImage] = useState({});
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/bagnest/products`)
@@ -70,14 +71,32 @@ export const Audit = () => {
                 key={product._id}
                 className="group bg-card rounded-[var(--radius-xl)] border border-edge overflow-hidden transition-all duration-400 hover:border-edge-2 hover:shadow-card-hover hover:-translate-y-1"
               >
+
                 <div className="aspect-[4/5] bg-raised overflow-hidden flex items-center justify-center p-5">
                   <img
-                    src={product.image}
+                    src={product.image[currentImage[product._id] || 0]}
                     alt={product.name}
-                    className="max-w-full max-h-full object-contain transition-transform duration-500 ease-[var(--ease-spring)] group-hover:scale-[1.06]"
                     loading="lazy"
+                    className="absolute inset-0 w-full h-full object-contain p-6 transition-transform duration-[600ms] ease-[var(--ease-spring)] group-hover:scale-[1.06]"
                   />
                 </div>
+                <button
+                  onClick={() => {
+                    setcurrentImage(prev => {
+                      const current = prev[product._id] || 0;
+
+                      const nextIndex =
+                        current >= product.image.length - 1 ? 0 : current + 1;
+
+                      return {
+                        ...prev,
+                        [product._id]: nextIndex
+                      };
+                    });
+                  }}
+                >
+                  Next
+                </button>
                 <div className="p-5 pt-4 space-y-3">
                   <h3 className="text-[13px] font-semibold text-fg line-clamp-2 leading-snug min-h-[36px]">
                     {product.name}
