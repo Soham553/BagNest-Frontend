@@ -43,31 +43,44 @@ function ProductCard({ name, price, image, height, width, num_of_pockets, onImag
   const msg = encodeURIComponent(
     `I want to buy this product\n\nProduct: ${name}\nPrice: ₹${price}\nImage: ${image}`
   );
-  const [currentImage, setcurrentImage] = useState(0);
+  const [currentIndex, setcurrentIndex] = useState(0);
+  const size = image.length;
 
   return (
     <article className="group bg-card rounded-[var(--radius-xl)] border border-edge overflow-hidden transition-all duration-400 hover:border-edge-2 hover:shadow-card-hover hover:-translate-y-1">
       <div
         className="relative aspect-[4/5] bg-raised overflow-hidden cursor-pointer"
-        onClick={() => onImageClick && onImageClick(image[currentImage], name)}
+        onClick={() => onImageClick && onImageClick(image[currentIndex], name)}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setcurrentIndex(prev =>
+              prev === 0 ? image.length - 1 : prev - 1
+            );
+          }}
+          className={`absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
+        >
+          ‹
+        </button>
         <img
-          src={image[currentImage]}
-          alt={name}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-contain p-6 transition-transform duration-[600ms] ease-[var(--ease-spring)] group-hover:scale-[1.06]"
+          src={image[currentIndex]}
+          className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
         />
-      </div>
-      <button onClick={() => {
-        if (currentImage >= image.length - 1)
-          setcurrentImage(0);
-        else
-          setcurrentImage(currentImage + 1)
-      }}>
-        Thumbnail
-      </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setcurrentIndex(prev =>
+              prev === image.length - 1 ? 0 : prev + 1
+            );
+          }}
+          className={`absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
+        >
+          ›
+        </button>
 
+      </div>
       <div className="p-5 pt-4 space-y-3">
         <h3 className="text-[13px] font-semibold text-fg leading-snug line-clamp-2 min-h-[36px]">
           {name}

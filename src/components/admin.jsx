@@ -3,25 +3,65 @@ import { NavLink } from "react-router";
 import { PlusIcon, TrashIcon, HomeIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import { Button, EmptyState, Spinner, Skeleton } from "./ui";
 
+
+const ProductCard = ({ product }) => {
+  const [currentIndex, setcurrentIndex] = useState(0);
+  const size = 2;
+
+  return (
+    <>
+      <div className="absolute inset-0 bg-gradient-to-t" >
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setcurrentIndex(prev =>
+              prev === 0 ? product.image.length - 1 : prev - 1
+            );
+          }}
+          className={`absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
+        >
+          ‹
+        </button>
+        <img
+          src={product.image[currentIndex]}
+          className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
+        />
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setcurrentIndex(prev =>
+              prev === product.image.length - 1 ? 0 : prev + 1
+            );
+          }}
+          className={`absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
+        >
+          ›
+        </button>
+      </div>
+    </>
+  )
+}
+
+
 export const Audit = () => {
   const [products, setproducts] = useState([]);
   const [loading, setloading] = useState(true);
-  const [currentImage, setcurrentImage] = useState({});
+
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/bagnest/products`)
+    fetch(`http://localhost:3000/bagnest/products`)
       .then(res => res.json())
       .then(data => {
         setproducts(Array.isArray(data) ? data : data.Products || []);
         setloading(false);
       });
-  }, []);
+  }, [products]);
 
   const deleteProduct = async (id) => {
     console.log(id);
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (!confirmDelete) return;
-    await fetch(`${import.meta.env.VITE_API_URL}/bagnest/products/${id}`, { method: "DELETE" });
+    await fetch(`http://localhost:3000/bagnest/products/${id}`, { method: "DELETE" });
     setproducts(products.filter(p => p._id !== id));
   };
   if (loading)
@@ -69,34 +109,11 @@ export const Audit = () => {
             {products.map(product => (
               <div
                 key={product._id}
-                className="group bg-card rounded-[var(--radius-xl)] border border-edge overflow-hidden transition-all duration-400 hover:border-edge-2 hover:shadow-card-hover hover:-translate-y-1"
-              >
+                className="group bg-card rounded-[var(--radius-xl)] border border-edge overflow-hidden transition-all duration-400 hover:border-edge-2 hover:shadow-card-hover hover:-translate-y-1">
+                <div className="relative aspect-[4/5] bg-raised overflow-hidden cursor-pointer">
 
-                <div className="aspect-[4/5] bg-raised overflow-hidden flex items-center justify-center p-5">
-                  <img
-                    src={product.image[currentImage[product._id] || 0]}
-                    alt={product.name}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-contain p-6 transition-transform duration-[600ms] ease-[var(--ease-spring)] group-hover:scale-[1.06]"
-                  />
+                  <ProductCard product={product} />
                 </div>
-                <button
-                  onClick={() => {
-                    setcurrentImage(prev => {
-                      const current = prev[product._id] || 0;
-
-                      const nextIndex =
-                        current >= product.image.length - 1 ? 0 : current + 1;
-
-                      return {
-                        ...prev,
-                        [product._id]: nextIndex
-                      };
-                    });
-                  }}
-                >
-                  Next
-                </button>
                 <div className="p-5 pt-4 space-y-3">
                   <h3 className="text-[13px] font-semibold text-fg line-clamp-2 leading-snug min-h-[36px]">
                     {product.name}
