@@ -3,6 +3,79 @@ import { useNavigate, useLocation } from "react-router";
 import { ArrowLeftIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { Button, Input, Spinner } from "./ui";
 
+
+const Imagepre = ({ imagePreview, setImagePreview, current, setcurrent, handleImageChange }) => {
+    const images = imagePreview;
+    const size = images.length;
+
+    const handleRemove = () => {
+        const updatedImages = images.filter((_, i) => i !== current);
+        setImagePreview(updatedImages);
+        setcurrent(prev => (prev > 0 ? prev - 1 : 0));
+    };
+
+    return (
+        <div className="relative rounded-[var(--radius-lg)] overflow-hidden border border-edge">
+            <button
+                type="button"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setcurrent(prev => (prev === 0 ? size - 1 : prev - 1));
+                }}
+                className={`absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
+            >
+                ‹
+            </button>
+
+            {size > 0 && (
+                <label className="cursor-pointer">
+                    <img
+                        src={images[current]}
+                        alt="Preview"
+                        className="w-full h-52 object-contain"
+                    />
+
+                    <input
+                        type="file"
+                        hidden
+                        onChange={handleImageChange}
+                    />
+                </label>
+            )}
+
+
+            <button
+                type="button"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setcurrent(prev => (prev === size - 1 ? 0 : prev + 1));
+                }}
+                className={`absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
+            >
+                ›
+            </button>
+
+            <label className="cursor-pointer">
+                <button
+                    type="button"
+                    className="absolute top-3 right-3 h-8 px-3 rounded-[var(--radius-md)] bg-page/90 backdrop-blur-sm border border-edge text-fg text-[11px] font-semibold hover:bg-raised transition-all"
+                >
+                    Change
+                </button>
+
+                <input
+                    type="file"
+                    hidden
+                    onChange={handleImageChange}
+                />
+            </label>
+        </div>
+    );
+
+
+
+}
+
 export const UpdateProduct = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -10,23 +83,35 @@ export const UpdateProduct = () => {
 
     const [name, setName] = useState(product?.name || "");
     const [price, setPrice] = useState(product?.price || "");
-    const [image, setimage] = useState(null);
+    const [image, setimage] = useState([]);
     const [height, setHeight] = useState(product?.height || "");
     const [width, setWidth] = useState(product?.width || "");
     const [no_of_pockets, setPockets] = useState(product?.no_of_pockets || "");
     const [loading, setLoading] = useState(false);
     const [imagePreview, setImagePreview] = useState(product?.image || null);
+    const [current, setcurrent] = useState(0);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        setimage(file);
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => setImagePreview(reader.result);
-            reader.readAsDataURL(file);
-        }
-    };
+        console.log(file);
+        if (!file) return;
 
+        const preview = URL.createObjectURL(file);
+
+        // Replace file at current index
+        setimage(prev => {
+            const updated = [...prev];
+            updated[current] = file;
+            return updated;
+        });
+
+        // Replace preview at current index
+        setImagePreview(prev => {
+            const updated = [...prev];
+            updated[current] = preview;
+            return updated;
+        });
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -104,16 +189,7 @@ export const UpdateProduct = () => {
                     <div>
                         <label className="block text-[13px] font-medium text-fg-2 mb-2">Product Image</label>
                         {imagePreview ? (
-                            <div className="relative rounded-[var(--radius-lg)] overflow-hidden border border-edge">
-                                <img src={imagePreview} alt="Preview" className="w-full h-52 object-contain bg-raised p-5" />
-                                <button
-                                    type="button"
-                                    onClick={() => { setimage(null); setImagePreview(null); }}
-                                    className="absolute top-3 right-3 h-8 px-3 rounded-[var(--radius-md)] bg-page/90 backdrop-blur-sm border border-edge text-fg text-[11px] font-semibold hover:bg-raised transition-all"
-                                >
-                                    Change
-                                </button>
-                            </div>
+                            <Imagepre imagePreview={imagePreview} setImagePreview={setImagePreview} current={current} setcurrent={setcurrent} handleImageChange={handleImageChange} />
                         ) : (
                             <label className="flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-edge rounded-[var(--radius-lg)] cursor-pointer hover:border-act/50 hover:bg-raised transition-all duration-300 group">
                                 <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-act-subtle border border-act/15 flex items-center justify-center mb-3 group-hover:shadow-glow transition-shadow duration-300">
