@@ -61,7 +61,8 @@ export const Audit = () => {
     console.log(id);
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (!confirmDelete) return;
-    await fetch(`http://localhost:3000/bagnest/products/${id}`, { method: "DELETE" });
+    const res = await fetch(`http://localhost:3000/bagnest/products/${id}`, { method: "DELETE" });
+    console.log(res);
     setproducts(products.filter(p => p._id !== id));
   };
   if (loading)

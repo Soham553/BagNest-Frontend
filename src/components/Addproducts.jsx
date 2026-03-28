@@ -7,43 +7,57 @@ import { useEffect } from "react";
 const Imagepreview = ({ imagePreview, setimage, setImagePreview }) => {
   const images = imagePreview;
   const [current, setcurrent] = useState(0);
-  const size = 2;
+  const size = images.length;
+
+  const handleRemove = () => {
+    const updatedImages = images.filter((_, i) => i !== current);
+    setimage(updatedImages);
+    setImagePreview(updatedImages);
+    setcurrent(prev => (prev > 0 ? prev - 1 : 0));
+  };
+
   return (
     <div className="relative rounded-[var(--radius-lg)] overflow-hidden border border-edge">
-      <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
       <button
+        type="button"
         onClick={(e) => {
           e.stopPropagation();
-          setcurrent(prev =>
-            prev === 0 ? setcurrent(images.length - 1) : current - 1
-          );
+          setcurrent(prev => (prev === 0 ? size - 1 : prev - 1));
         }}
         className={`absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
       >
         ‹
       </button>
-      <img src={images[current]} alt="Preview" className="w-full h-52 object-contain bg-raised p-5" />
+
+      {size > 0 && (
+        <img
+          src={images[current]}
+          alt="Preview"
+          className="w-full h-52 object-contain bg-raised p-5"
+        />
+      )}
+
       <button
+        type="button"
         onClick={(e) => {
           e.stopPropagation();
-          setcurrent(prev =>
-            prev === images.length - 1 ? 0 : current + 1
-          );
+          setcurrent(prev => (prev === size - 1 ? 0 : prev + 1));
         }}
         className={`absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
       >
         ›
       </button>
+
       <button
         type="button"
-        onClick={() => { setimage(images.splice(current, 1)); setImagePreview(images.splice(current, 1)); }}
+        onClick={handleRemove}
         className="absolute top-3 right-3 h-8 px-3 rounded-[var(--radius-md)] bg-page/90 backdrop-blur-sm border border-edge text-fg text-[11px] font-semibold hover:bg-raised transition-all"
       >
         Remove
       </button>
     </div>
-  )
-}
+  );
+};
 
 export const Addproduct = () => {
   const navigate = useNavigate();
@@ -57,9 +71,6 @@ export const Addproduct = () => {
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState([]);
 
-  useEffect(() => {
-    console.log("images updated:", image);
-  }, [image]);
 
   const handleImageChange = (e) => {
     const file = Array.from(e.target.files);
@@ -88,8 +99,7 @@ export const Addproduct = () => {
     formData.append("height", height);
     formData.append("width", width);
     formData.append("no_of_pockets", no_of_pockets);
-    const data = Object.fromEntries(formData.entries());
-    console.log("This is from data: ", data);
+
 
     try {
       const res = await fetch(`http://localhost:3000/bagnest/upload`, {
