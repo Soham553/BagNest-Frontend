@@ -205,22 +205,7 @@ export default function ProductCards() {
           ))}
         </div>
       </section>
-      <div className="flex gap-3 justify-center mt-10">
-        <button
-          onClick={() => fetchProducts(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>Page {currentPage}</span>
 
-        <button
-          onClick={() => fetchProducts(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
 
       {/* ── Image Lightbox ── */}
       {lightbox && (
