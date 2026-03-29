@@ -99,6 +99,9 @@ export const Addproduct = () => {
     formData.append("height", height);
     formData.append("width", width);
     formData.append("no_of_pockets", no_of_pockets);
+    const data = Object.fromEntries(formData.entries());
+    const js = JSON.stringify(data);
+    console.log(js);
 
 
     try {
