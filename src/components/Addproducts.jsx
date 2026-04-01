@@ -4,6 +4,64 @@ import { ArrowLeftIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { Button, Input, Spinner } from "./ui";
 import { useEffect } from "react";
 
+
+const Videopreview = ({ videoPreview, setvideoPreview, setvideo }) => {
+  const videos = videoPreview;
+  const [current, setcurrent] = useState(0);
+  const size = videos.length;
+
+  const handleRemove = () => {
+    const updatedvideo = videos.filter((_, i) => i !== current);
+
+    setvideo(updatedvideo);
+    setvideoPreview(updatedvideo);
+
+    setcurrent(prev => {
+      if (updatedvideo.length === 0) return 0;
+      return prev >= updatedvideo.length ? updatedvideo.length - 1 : prev;
+    });
+  };
+
+  const handlePrev = () => {
+    setcurrent(prev => (prev > 0 ? prev - 1 : videos.length - 1));
+  };
+
+  const handleNext = () => {
+    setcurrent(prev => (prev < videos.length - 1 ? prev + 1 : 0));
+  };
+
+  return (
+    <div className="relative rounded-[var(--radius-lg)] overflow-hidden border border-edge">
+      <button
+        type="button"
+        onClick={handlePrev}
+        className={`absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}>
+        {"<"}
+      </button>
+
+      {size > 0 && (
+        <video key={videos[current]} autoPlay muted loop>
+          <source src={videos[current]} />
+        </video>
+      )}
+
+      <button
+        type="button"
+        onClick={handleNext}
+        className={`absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}>
+        {">"}
+      </button>
+
+      <button
+        type="button"
+        onClick={handleRemove}
+        className="absolute top-3 h-8 px-3 rounded-[var(--radius-md)] bg-page/90 backdrop-blur-sm border border-edge text-fg text-[11px] font-semibold hover:bg-raised transition-all">
+        Remove
+      </button>
+    </div>
+  );
+};
+
 const Imagepreview = ({ imagePreview, setimage, setImagePreview }) => {
   const images = imagePreview;
   const [current, setcurrent] = useState(0);
@@ -70,11 +128,28 @@ export const Addproduct = () => {
   const [no_of_pockets, setPockets] = useState("");
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState([]);
+  const [video, setvideo] = useState([]);
+  const [videoPreview, setvideoPreview] = useState([]);
 
+  useEffect(() => {
+    console.log("this is video: ", videoPreview);
+  }, [videoPreview]);
+
+
+  const handleVideoChange = (e) => {
+    const file = Array.from(e.target.files);
+
+    setvideo(prev => [...prev, ...file]);
+
+    const previews = file.map(file =>
+      URL.createObjectURL(file)
+    );
+
+    setvideoPreview(prev => [...prev, ...previews]);
+  };
 
   const handleImageChange = (e) => {
     const file = Array.from(e.target.files);
-    console.log(file);
 
     setimage(prev => [...prev, ...file]);
 
@@ -82,7 +157,7 @@ export const Addproduct = () => {
       URL.createObjectURL(file)
     );
 
-    setImagePreview(previews)
+    setImagePreview(prev => [...prev, ...previews]);
 
   };
 
@@ -99,10 +174,11 @@ export const Addproduct = () => {
     formData.append("height", height);
     formData.append("width", width);
     formData.append("no_of_pockets", no_of_pockets);
-    const data = Object.fromEntries(formData.entries());
-    const js = JSON.stringify(data);
-    console.log(js);
+    video.forEach(file => {
+      formData.append("video", file);
+    })
 
+    console.log(formData);
 
     try {
       const res = await fetch(`http://localhost:3000/bagnest/upload`, {
@@ -110,7 +186,6 @@ export const Addproduct = () => {
         body: formData
       });
       const data = await res.json();
-      console.log("This is data: ", data);
       if (res.status == 201) {
         alert("Product added successfully!");
       } else {
@@ -147,22 +222,43 @@ export const Addproduct = () => {
           onSubmit={handleSubmit}
           className="u-glass rounded-[var(--radius-xl)] p-7 sm:p-8 space-y-6"
         >
-          <div>
-            <label className="block text-[13px] font-medium text-fg-2 mb-2">
-              Product Image <span className="text-act">*</span>
-            </label>
-            {imagePreview && imagePreview.length > 0 ? (
-              <Imagepreview imagePreview={imagePreview} setImagePreview={setImagePreview} setimage={setimage} />
-            ) : (
-              <label className="flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-edge rounded-[var(--radius-lg)] cursor-pointer hover:border-act/50 hover:bg-raised transition-all duration-300 group">
-                <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-act-subtle border border-act/15 flex items-center justify-center mb-3 group-hover:shadow-glow transition-shadow duration-300">
-                  <PhotoIcon className="w-6 h-6 text-act/70 group-hover:text-act transition-colors" />
-                </div>
-                <span className="text-[13px] font-medium text-fg-3 group-hover:text-fg transition-colors">Click to upload</span>
-                <span className="text-[11px] text-fg-4 mt-1">PNG, JPG, WEBP up to 10 MB</span>
-                <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} required multiple />
+          <div className="flex gap-10">
+            <div className="w-full">
+              <label className="block text-[13px] font-medium text-fg-2 mb-2">
+                Product Image <span className="text-act">*</span>
               </label>
-            )}
+              {imagePreview && imagePreview.length > 0 ? (
+                <Imagepreview imagePreview={imagePreview} setImagePreview={setImagePreview} setimage={setimage} />
+              ) : (
+                <label className="flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-edge rounded-[var(--radius-lg)] cursor-pointer hover:border-act/50 hover:bg-raised transition-all duration-300 group">
+                  <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-act-subtle border border-act/15 flex items-center justify-center mb-3 group-hover:shadow-glow transition-shadow duration-300">
+                    <PhotoIcon className="w-6 h-6 text-act/70 group-hover:text-act transition-colors" />
+                  </div>
+                  <span className="text-[13px] font-medium text-fg-3 group-hover:text-fg transition-colors">Click to upload</span>
+                  <span className="text-[11px] text-fg-4 mt-1">PNG, JPG, WEBP up to 10 MB</span>
+                  <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} required multiple />
+                </label>
+
+              )}
+            </div>
+
+            <div className="w-full">
+              <label className="block text-[13px] font-medium text-fg-2 mb-2">
+                Product Video <span className="text-act">*</span>
+              </label>
+              {videoPreview && videoPreview.length > 0 ? (
+                <Videopreview videoPreview={videoPreview} setvideoPreview={setvideoPreview} setvideo={setvideo} />
+              ) : (
+                <label className="flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-edge rounded-[var(--radius-lg)] cursor-pointer hover:border-act/50 hover:bg-raised transition-all duration-300 group">
+                  <div className="w-12 h-12 rounded-[var(--radius-lg)] bg-act-subtle border border-act/15 flex items-center justify-center mb-3 group-hover:shadow-glow transition-shadow duration-300">
+                    <PhotoIcon className="w-6 h-6 text-act/70 group-hover:text-act transition-colors" />
+                  </div>
+                  <span className="text-[13px] font-medium text-fg-3 group-hover:text-fg transition-colors">Click to upload</span>
+                  <span className="text-[11px] text-fg-4 mt-1">MP4, MOV, WEBP up to 100 MB</span>
+                  <input type="file" className="hidden" accept="video/*" onChange={handleVideoChange} required multiple />
+                </label>
+              )}
+            </div>
           </div>
 
           <Input label="Product Name" required type="text" placeholder="e.g., Premium Leather Backpack" value={name} onChange={e => setName(e.target.value)} />

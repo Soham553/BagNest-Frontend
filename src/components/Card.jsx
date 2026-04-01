@@ -133,7 +133,7 @@ export default function ProductCards() {
 
 
   useEffect(() => {
-    fetch(`http://localhost:3000/bagnest/products?page=${page}&limit=8`)
+    fetch(`http://localhost:3000/bagnest/products/`)
       .then(r => {
         if (!r.ok) throw new Error("Failed to fetch products");
         return r.json();
