@@ -183,7 +183,7 @@ export const Addproduct = () => {
     console.log(formData);
 
     try {
-      const res = await fetch(`http://localhost:3000/bagnest/upload`, {
+      const res = await fetch(`http://${import.meta.env.VITE_API_URL}/bagnest/upload`, {
         method: "Post",
         body: formData
       });
