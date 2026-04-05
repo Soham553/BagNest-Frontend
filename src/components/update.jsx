@@ -129,7 +129,7 @@ export const UpdateProduct = () => {
 
         try {
             const res = await fetch(
-                `https://${import.meta.env.VITE_API_URL}/bagnest/products/${product._id}`,
+                `${import.meta.env.VITE_API_URL}/bagnest/products/${product._id}`,
                 {
                     method: "PUT",
                     body: formData,   // ✅ SEND FORMDATA

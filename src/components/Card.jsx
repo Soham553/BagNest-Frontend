@@ -158,7 +158,7 @@ export default function ProductCards() {
 
 
   useEffect(() => {
-    fetch(`https://${import.meta.env.VITE_API_URL}/bagnest/products/`)
+    fetch(`${import.meta.env.VITE_API_URL}/bagnest/products/`)
       .then(r => {
         if (!r.ok) throw new Error("Failed to fetch products");
         return r.json();
