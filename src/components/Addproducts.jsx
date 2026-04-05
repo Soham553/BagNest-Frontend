@@ -168,9 +168,11 @@ export const Addproduct = () => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("price", price);
-    image.forEach(file => {
-      formData.append("image", file);
-    })
+    if (image.length > 0) {
+      image.forEach(file => {
+        formData.append("image", file);
+      });
+    }
     formData.append("height", height);
     formData.append("width", width);
     formData.append("no_of_pockets", no_of_pockets);
@@ -236,7 +238,7 @@ export const Addproduct = () => {
                   </div>
                   <span className="text-[13px] font-medium text-fg-3 group-hover:text-fg transition-colors">Click to upload</span>
                   <span className="text-[11px] text-fg-4 mt-1">PNG, JPG, WEBP up to 10 MB</span>
-                  <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} required multiple />
+                  <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} multiple />
                 </label>
 
               )}

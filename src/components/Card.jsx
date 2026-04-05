@@ -37,14 +37,30 @@ function CardSkeleton() {
     </div>
   );
 }
-function ProductCard({ name, price, image, height, width, num_of_pockets, onImageClick }) {
+function ProductCard({ name, price, image, video, height, width, num_of_pockets, onImageClick }) {
   const waNumber = `${import.meta.env.VITE_wsnum}`;
   const igLink = "https://instagram.com/sakhare553";
   const msg = encodeURIComponent(
     `I want to buy this product\n\nProduct: ${name}\nPrice: ₹${price}\nImage: ${image}`
   );
   const [currentIndex, setcurrentIndex] = useState(0);
-  const size = image.length;
+  const media = [
+    ...image.map(img => ({
+      type: "image",
+      value: img
+    })),
+    ...(video || []).map(vid => ({
+      type: "youtube",
+      value: vid
+    }))
+  ]
+  const size = media.length;
+  const currentItem = media[currentIndex];
+
+
+  useEffect(() => {
+    console.log(media);
+  }, []);
 
   return (
     <article className="group bg-card rounded-[var(--radius-xl)] border border-edge overflow-hidden transition-all duration-400 hover:border-edge-2 hover:shadow-card-hover hover:-translate-y-1">
@@ -64,10 +80,19 @@ function ProductCard({ name, price, image, height, width, num_of_pockets, onImag
         >
           ‹
         </button>
-        <img
-          src={image[currentIndex]}
-          className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
-        />
+        {currentItem.type == "image" ? (
+          <img
+            src={currentItem.value}
+            className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
+          />
+        ) :
+          <iframe
+            src={`https://www.youtube.com/embed/${currentItem.value}?autoplay=1&mute=1`}
+            allow="autoplay"
+            className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
+
+          ></iframe>
+        }
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -197,6 +222,7 @@ export default function ProductCards() {
               name={p.name}
               price={p.price}
               image={p.image}
+              video={p.video}
               height={p.height}
               width={p.width}
               num_of_pockets={p.num_of_pockets}
