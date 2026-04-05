@@ -11,7 +11,7 @@ export function Login() {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await fetch(`http://${import.meta.env.VITE_API_URL}/bagnest/login`, {
+            const res = await fetch(`https://${import.meta.env.VITE_API_URL}/bagnest/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
