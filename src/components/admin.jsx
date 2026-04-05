@@ -49,7 +49,7 @@ export const Audit = () => {
 
 
   useEffect(() => {
-    fetch(`${VITE_API_URL}/bagnest/products`)
+    fetch(`${import.meta.env.VITE_API_URL}/bagnest/products`)
       .then(res => res.json())
       .then(data => {
         setproducts(Array.isArray(data) ? data : data.Products || []);
