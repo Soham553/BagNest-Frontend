@@ -49,7 +49,7 @@ export const Audit = () => {
 
 
   useEffect(() => {
-    fetch(`https://${VITE_API_URL}/bagnest/products`)
+    fetch(`${VITE_API_URL}/bagnest/products`)
       .then(res => res.json())
       .then(data => {
         setproducts(Array.isArray(data) ? data : data.Products || []);
@@ -61,7 +61,7 @@ export const Audit = () => {
     console.log(id);
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (!confirmDelete) return;
-    const res = await fetch(`https://${import.meta.env.VITE_API_URL}/bagnest/products/${id}`, { method: "DELETE" });
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/bagnest/products/${id}`, { method: "DELETE" });
     console.log(res);
     setproducts(products.filter(p => p._id !== id));
   };
