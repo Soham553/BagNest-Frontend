@@ -106,7 +106,7 @@ function ProductCard({ name, price, image, video, height, width, num_of_pockets,
           />
         ) : (
           <iframe
-            src={`https://www.youtube.com/embed/${currentItem.value}?autoplay=1&mute=1`}
+            src={`https://www.youtube.com/embed/${currentItem.value}?autoplay=1&mute=1&loop=1&playlist=${currentItem.value}`}
             allow="autoplay"
             className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
           ></iframe>
