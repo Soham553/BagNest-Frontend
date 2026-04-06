@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+   import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { ArrowLeftIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { Button, Input, Spinner } from "./ui";
@@ -238,7 +238,7 @@ export const Addproduct = () => {
                   </div>
                   <span className="text-[13px] font-medium text-fg-3 group-hover:text-fg transition-colors">Click to upload</span>
                   <span className="text-[11px] text-fg-4 mt-1">PNG, JPG, WEBP up to 10 MB</span>
-                  <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} multiple />
+                  <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} multiple/>
                 </label>
 
               )}
