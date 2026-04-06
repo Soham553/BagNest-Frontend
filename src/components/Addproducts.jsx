@@ -257,7 +257,7 @@ export const Addproduct = () => {
                   </div>
                   <span className="text-[13px] font-medium text-fg-3 group-hover:text-fg transition-colors">Click to upload</span>
                   <span className="text-[11px] text-fg-4 mt-1">MP4, MOV, WEBP up to 100 MB</span>
-                  <input type="file" className="hidden" accept="video/*" onChange={handleVideoChange} required multiple />
+                  <input type="file" className="hidden" accept="video/*" onChange={handleVideoChange}  multiple />
                 </label>
               )}
             </div>
