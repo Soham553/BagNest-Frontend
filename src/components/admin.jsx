@@ -14,11 +14,11 @@ function ProductCard({ product }) {
 
   const [currentIndex, setcurrentIndex] = useState(0);
   const media = [
-    ...images.map(img => ({
+    ...image.map(img => ({
       type: "image",
       value: img
     })),
-    ...videos.map(vid => ({
+    ...video.map(vid => ({
       type: "youtube",
       value: vid
     }))
@@ -67,7 +67,7 @@ function ProductCard({ product }) {
           />
         ) : (
           <iframe
-            src={`https://www.youtube.com/embed/${currentItem.value}?autoplay=1&mute=1&loop=1&playlist=${videoId}`}
+            src={`https://www.youtube.com/embed/${currentItem.value}?autoplay=1&mute=1&loop=1&playlist=${currentItem.value}`}
             allow="autoplay"
             className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
           ></iframe>
