@@ -67,7 +67,7 @@ function ProductCard({ product }) {
           />
         ) : (
           <iframe
-            src={`https://www.youtube.com/embed/${currentItem.value}?autoplay=1&mute=1`}
+            src={`https://www.youtube.com/embed/${currentItem.value}?autoplay=1&mute=1&loop=1&playlist=${videoId}`}
             allow="autoplay"
             className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
           ></iframe>
