@@ -40,16 +40,24 @@ function CardSkeleton() {
 function ProductCard({ name, price, image, video, height, width, num_of_pockets, onImageClick }) {
   const waNumber = `${import.meta.env.VITE_wsnum}`;
   const igLink = "https://instagram.com/sakhare553";
+
+  // Normalize image to always be an array
+  const images = Array.isArray(image) ? image : image ? [image] : [];
+  // Normalize video to always be an array
+  const videos = Array.isArray(video) ? video : video ? [video] : [];
+
   const msg = encodeURIComponent(
-    `I want to buy this product\n\nProduct: ${name}\nPrice: ₹${price}\nImage: ${image}`
+    `I want to buy this product\n\nProduct: ${name}\nPrice: ₹${price}\nImage: ${images[0] || ""}`
   );
+  console.log("This is images: ", images);
+  console.log("This is video: ", videos);
   const [currentIndex, setcurrentIndex] = useState(0);
   const media = [
-    ...image.map(img => ({
+    ...images.map(img => ({
       type: "image",
       value: img
     })),
-    ...(video || []).map(vid => ({
+    ...videos.map(vid => ({
       type: "youtube",
       value: vid
     }))
@@ -57,47 +65,57 @@ function ProductCard({ name, price, image, video, height, width, num_of_pockets,
   const size = media.length;
   const currentItem = media[currentIndex];
 
-
-  useEffect(() => {
-    console.log(media);
-  }, []);
+  if (!currentItem) {
+    return (
+      <article className="group bg-card rounded-[var(--radius-xl)] border border-edge overflow-hidden">
+        <div className="aspect-[4/5] bg-raised flex items-center justify-center text-fg-3 text-xs">
+          Image is Not Avaliable
+        </div>
+        <div className="p-5 pt-4 space-y-3">
+          <h3 className="text-[13px] font-semibold text-fg leading-snug line-clamp-2 min-h-[36px]">{name}</h3>
+          <p className="text-xl font-bold text-gold tracking-tight leading-none">
+            <span className="text-[13px] font-semibold text-gold-dim mr-0.5">₹</span>{price}
+          </p>
+        </div>
+      </article>
+    );
+  }
 
   return (
     <article className="group bg-card rounded-[var(--radius-xl)] border border-edge overflow-hidden transition-all duration-400 hover:border-edge-2 hover:shadow-card-hover hover:-translate-y-1">
       <div
         className="relative aspect-[4/5] bg-raised overflow-hidden cursor-pointer"
-        onClick={() => onImageClick && onImageClick(image[currentIndex], name)}
+        onClick={() => onImageClick && onImageClick(images[currentIndex], name)}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
         <button
           onClick={(e) => {
             e.stopPropagation();
             setcurrentIndex(prev =>
-              prev === 0 ? image.length - 1 : prev - 1
+              prev === 0 ? size - 1 : prev - 1
             );
           }}
           className={`absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
         >
           ‹
         </button>
-        {currentItem.type == "image" ? (
+        {currentItem.type === "image" ? (
           <img
             src={currentItem.value}
             className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
           />
-        ) :
+        ) : (
           <iframe
             src={`https://www.youtube.com/embed/${currentItem.value}?autoplay=1&mute=1`}
             allow="autoplay"
             className="absolute inset-0 w-full h-full object-contain p-6 transition duration-300"
-
           ></iframe>
-        }
+        )}
         <button
           onClick={(e) => {
             e.stopPropagation();
             setcurrentIndex(prev =>
-              prev === image.length - 1 ? 0 : prev + 1
+              prev === size - 1 ? 0 : prev + 1
             );
           }}
           className={`absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/70 px-2 py-1 rounded ${size === 1 ? "hidden" : ""}`}
@@ -156,19 +174,29 @@ export default function ProductCards() {
   const [currentPage, setcurrentPage] = useState(1);
   const [totalPages, settotalPages] = useState(1);
 
+  useEffect(() => {
+    console.log("This is items from useeffect: ", items);
+  }, [items]);
+
 
   useEffect(() => {
+    console.log("useEffect triggered");
+
     fetch(`${import.meta.env.VITE_API_URL}/bagnest/products/`)
       .then(r => {
         if (!r.ok) throw new Error("Failed to fetch products");
         return r.json();
       })
       .then(d => {
+        console.log("API RESPONSE:", d);
+
         setItems(Array.isArray(d.Products) ? d.Products : []);
         setLoading(false);
-        console.log(d);
+
+        console.log("Products:", d.Products);
       })
       .catch(e => {
+        console.error("ERROR:", e);
         setError(e.message);
         setLoading(false);
       });
