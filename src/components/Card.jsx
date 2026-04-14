@@ -39,7 +39,7 @@ function CardSkeleton() {
 }
 function ProductCard({ name, price, image, video, height, width, num_of_pockets, onImageClick }) {
   const waNumber = `${import.meta.env.VITE_wsnum}`;
-  const igLink = "https://instagram.com/sakhare553";
+  const igLink = "https://instagram.com/instylever";
 
   // Normalize image to always be an array
   const images = Array.isArray(image) ? image : image ? [image] : [];
