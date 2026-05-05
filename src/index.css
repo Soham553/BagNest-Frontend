@@ -2,62 +2,62 @@
 
 /*
  * ─────────────────────────────────────────────
- *  BAGNEST — LUXE LIGHT DESIGN SYSTEM
- *  Clean white e-commerce aesthetic
- *  Soft ivory surfaces + violet-indigo + champagne gold
+ *  BAGNEST — MIDNIGHT LUXE DESIGN SYSTEM V2
+ *  Ultra-premium dark mode e-commerce aesthetic
+ *  Deep slate surfaces + vibrant violet-indigo + gold
  * ─────────────────────────────────────────────
  */
 
 @theme {
   /* ── surfaces ── */
-  --color-page: #f7f7fb;
-  --color-card: #ffffff;
-  --color-raised: #f0f0f6;
-  --color-glass: rgba(255, 255, 255, 0.72);
+  --color-page: #050507;
+  --color-card: rgba(18, 18, 24, 0.6);
+  --color-raised: rgba(30, 30, 42, 0.7);
+  --color-glass: rgba(12, 12, 16, 0.5);
 
   /* ── text ── */
-  --color-fg: #1a1a2e;
-  --color-fg-2: #3a3a52;
-  --color-fg-3: #6e6e8a;
-  --color-fg-4: #a0a0b8;
+  --color-fg: #ffffff;
+  --color-fg-2: #e2e2e8;
+  --color-fg-3: #9ca3af;
+  --color-fg-4: #6b7280;
 
   /* ── borders ── */
-  --color-edge: rgba(0, 0, 0, 0.06);
-  --color-edge-2: rgba(0, 0, 0, 0.10);
-  --color-edge-3: rgba(0, 0, 0, 0.15);
+  --color-edge: rgba(255, 255, 255, 0.08);
+  --color-edge-2: rgba(255, 255, 255, 0.15);
+  --color-edge-3: rgba(255, 255, 255, 0.25);
 
   /* ── primary accent (violet-indigo) ── */
-  --color-act: #7c5cfc;
-  --color-act-hover: #6a48f0;
-  --color-act-glow: rgba(124, 92, 252, 0.18);
-  --color-act-ring: rgba(124, 92, 252, 0.25);
-  --color-act-subtle: rgba(124, 92, 252, 0.06);
+  --color-act: #8b5cf6;
+  --color-act-hover: #a78bfa;
+  --color-act-glow: rgba(139, 92, 246, 0.4);
+  --color-act-ring: rgba(139, 92, 246, 0.25);
+  --color-act-subtle: rgba(139, 92, 246, 0.1);
 
   /* ── gold / champagne (price, premium highlights) ── */
-  --color-gold: #b8860b;
-  --color-gold-dim: #9a7209;
-  --color-gold-bg: rgba(184, 134, 11, 0.06);
+  --color-gold: #fbbf24;
+  --color-gold-dim: #d97706;
+  --color-gold-bg: rgba(251, 191, 36, 0.1);
 
   /* ── status ── */
   --color-err: #ef4444;
-  --color-err-bg: rgba(239, 68, 68, 0.06);
-  --color-err-glow: rgba(239, 68, 68, 0.12);
+  --color-err-bg: rgba(239, 68, 68, 0.1);
+  --color-err-glow: rgba(239, 68, 68, 0.2);
   --color-ok: #22c55e;
-  --color-ok-bg: rgba(34, 197, 94, 0.06);
+  --color-ok-bg: rgba(34, 197, 94, 0.1);
 
   /* ── social ── */
   --color-wa: #25d366;
   --color-wa-h: #1fba59;
 
   /* ── shadows (soft, premium) ── */
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.07), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-  --shadow-glow: 0 0 20px -4px var(--color-act-glow);
-  --shadow-card-hover: 0 16px 48px -8px rgba(0, 0, 0, 0.10), 0 0 20px -4px var(--color-act-glow);
-  --shadow-gold-glow: 0 0 16px -4px rgba(184, 134, 11, 0.15);
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.6), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.8), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 24px -4px var(--color-act-glow);
+  --shadow-card-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.9), 0 0 30px -5px var(--color-act-glow);
+  --shadow-gold-glow: 0 0 24px -4px rgba(251, 191, 36, 0.3);
 
   /* ── radii ── */
   --radius-sm: 6px;
@@ -97,10 +97,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  /* subtle radial gradient overlay for depth */
+  /* subtle deep space gradient overlay for depth */
   background-image:
-    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(124, 92, 252, 0.04) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(184, 134, 11, 0.02) 0%, transparent 60%);
+    radial-gradient(ellipse 60% 80% at 50% -20%, rgba(139, 92, 246, 0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 50% at 80% 100%, rgba(251, 191, 36, 0.05) 0%, transparent 60%);
   background-attachment: fixed;
 }
 
@@ -111,8 +111,8 @@ body {
 
 /* ── scrollbar ── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -120,12 +120,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.12);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.22);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* ── focus ring ── */
@@ -136,21 +136,15 @@ body {
 
 /* ─────────── KEYFRAMES ─────────── */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -160,9 +154,8 @@ body {
 @keyframes slide-down {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-12px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -172,9 +165,8 @@ body {
 @keyframes scale-in {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.92);
   }
-
   to {
     opacity: 1;
     transform: scale(1);
@@ -182,150 +174,70 @@ body {
 }
 
 @keyframes shimmer {
-  to {
-    background-position: -200% 0;
-  }
+  to { background-position: -200% 0; }
 }
 
 @keyframes glow-pulse {
-
-  0%,
-  100% {
-    box-shadow: 0 0 12px -2px var(--color-act-glow);
-  }
-
-  50% {
-    box-shadow: 0 0 24px -2px var(--color-act-glow);
-  }
+  0%, 100% { box-shadow: 0 0 16px -2px var(--color-act-glow); }
+  50% { box-shadow: 0 0 32px -2px var(--color-act-glow); }
 }
 
 @keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-6px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 @keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 /* ─────────── UTILITIES ─────────── */
-.u-fade-in {
-  animation: fade-in .4s var(--ease) both;
-}
-
-.u-fade-up {
-  animation: fade-up .5s var(--ease-spring) both;
-}
-
-.u-scale-in {
-  animation: scale-in .35s var(--ease-spring) both;
-}
-
-.u-slide-dn {
-  animation: slide-down .3s var(--ease) both;
-}
+.u-fade-in { animation: fade-in .5s var(--ease) both; }
+.u-fade-up { animation: fade-up .6s var(--ease-spring) both; }
+.u-scale-in { animation: scale-in .4s var(--ease-spring) both; }
+.u-slide-dn { animation: slide-down .4s var(--ease) both; }
 
 .u-shimmer {
-  background: linear-gradient(90deg, #ededf3 30%, #e0e0ea 50%, #ededf3 70%);
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 30%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 70%);
   background-size: 300% 100%;
-  animation: shimmer 1.8s ease infinite;
+  animation: shimmer 2s ease infinite;
 }
 
-.u-glow-pulse {
-  animation: glow-pulse 2.5s ease-in-out infinite;
-}
+.u-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+.u-float { animation: float 5s ease-in-out infinite; }
 
-.u-float {
-  animation: float 4s ease-in-out infinite;
-}
-
-/* glassmorphism panel — light version */
+/* glassmorphism panel — dark premium version */
 .u-glass {
   background: var(--color-glass);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
   border: 1px solid var(--color-edge);
 }
 
 /* animated gradient mesh background helper */
 .u-gradient-mesh {
-  background: linear-gradient(-45deg, rgba(124, 92, 252, 0.06), rgba(184, 134, 11, 0.03), rgba(124, 92, 252, 0.04), rgba(34, 197, 94, 0.02));
+  background: linear-gradient(-45deg, rgba(139, 92, 246, 0.1), rgba(251, 191, 36, 0.05), rgba(139, 92, 246, 0.08), rgba(34, 197, 94, 0.02));
   background-size: 400% 400%;
-  animation: gradient-shift 12s ease infinite;
+  animation: gradient-shift 15s ease infinite;
 }
 
 /* stagger children entrance */
-.u-stagger>* {
-  animation: fade-up .45s var(--ease-spring) both;
-}
-
-.u-stagger>*:nth-child(1) {
-  animation-delay: 0ms;
-}
-
-.u-stagger>*:nth-child(2) {
-  animation-delay: 60ms;
-}
-
-.u-stagger>*:nth-child(3) {
-  animation-delay: 120ms;
-}
-
-.u-stagger>*:nth-child(4) {
-  animation-delay: 180ms;
-}
-
-.u-stagger>*:nth-child(5) {
-  animation-delay: 240ms;
-}
-
-.u-stagger>*:nth-child(6) {
-  animation-delay: 300ms;
-}
-
-.u-stagger>*:nth-child(7) {
-  animation-delay: 360ms;
-}
-
-.u-stagger>*:nth-child(8) {
-  animation-delay: 420ms;
-}
-
-.u-stagger>*:nth-child(9) {
-  animation-delay: 480ms;
-}
-
-.u-stagger>*:nth-child(10) {
-  animation-delay: 540ms;
-}
-
-.u-stagger>*:nth-child(11) {
-  animation-delay: 600ms;
-}
-
-.u-stagger>*:nth-child(12) {
-  animation-delay: 660ms;
-}
+.u-stagger > * { animation: fade-up .5s var(--ease-spring) both; }
+.u-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.u-stagger > *:nth-child(2) { animation-delay: 80ms; }
+.u-stagger > *:nth-child(3) { animation-delay: 160ms; }
+.u-stagger > *:nth-child(4) { animation-delay: 240ms; }
+.u-stagger > *:nth-child(5) { animation-delay: 320ms; }
+.u-stagger > *:nth-child(6) { animation-delay: 400ms; }
+.u-stagger > *:nth-child(7) { animation-delay: 480ms; }
+.u-stagger > *:nth-child(8) { animation-delay: 560ms; }
+.u-stagger > *:nth-child(9) { animation-delay: 640ms; }
+.u-stagger > *:nth-child(10) { animation-delay: 720ms; }
+.u-stagger > *:nth-child(11) { animation-delay: 800ms; }
+.u-stagger > *:nth-child(12) { animation-delay: 880ms; }
