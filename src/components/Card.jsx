@@ -27,11 +27,9 @@ function CardSkeleton() {
 
 function ProductCard({ name, price, image, video, height, width, num_of_pockets, onImageClick }) {
   const waNumber = `${import.meta.env.VITE_wsnum}`;
-<<<<<<< HEAD
-  const igLink = "https://instagram.com/sakhare553";
-=======
+
   const igLink = "https://instagram.com/instylever";
->>>>>>> 0055769ba8bfec9c2792342ff030d37c181b9822
+
 
   const images = Array.isArray(image) ? image : image ? [image] : [];
   const videos = Array.isArray(video) ? video : video ? [video] : [];
@@ -39,7 +37,7 @@ function ProductCard({ name, price, image, video, height, width, num_of_pockets,
   const msg = encodeURIComponent(
     `I want to buy this product\n\nProduct: ${name}\nPrice: ₹${price}\nImage: ${images[0] || ""}`
   );
-  
+
   const [currentIndex, setcurrentIndex] = useState(0);
   const media = [
     ...images.map(img => ({ type: "image", value: img })),
@@ -51,7 +49,7 @@ function ProductCard({ name, price, image, video, height, width, num_of_pockets,
   if (!currentItem) return null;
 
   return (
-    <motion.article 
+    <motion.article
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -118,7 +116,7 @@ function ProductCard({ name, price, image, video, height, width, num_of_pockets,
         <h3 className="text-sm sm:text-base font-medium text-white leading-tight line-clamp-1 mb-1 shadow-sm">
           {name}
         </h3>
-        
+
         <div className="flex items-end justify-between mt-1">
           <p className="text-xl sm:text-2xl font-bold text-gold tracking-tight leading-none drop-shadow-md">
             <span className="text-xs sm:text-sm font-semibold text-gold-dim mr-0.5 relative -top-1">₹</span>{price}
@@ -206,13 +204,13 @@ export default function ProductCards() {
     <>
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-8">
         <div className="flex items-end justify-between mb-6 sm:mb-8">
-           <div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">Curated Collection</h2>
-              <p className="text-xs sm:text-sm text-fg-4">Premium bags handpicked for you.</p>
-           </div>
-           <span className="hidden sm:inline-block text-sm text-fg-4">{items.length} items</span>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">Curated Collection</h2>
+            <p className="text-xs sm:text-sm text-fg-4">Premium bags handpicked for you.</p>
+          </div>
+          <span className="hidden sm:inline-block text-sm text-fg-4">{items.length} items</span>
         </div>
-        
+
         {/* Ultra-compact grid: 2 cols on mobile, up to 6 on ultra-wide */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
           {items.map(p => (
