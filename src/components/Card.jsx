@@ -27,7 +27,11 @@ function CardSkeleton() {
 
 function ProductCard({ name, price, image, video, height, width, num_of_pockets, onImageClick }) {
   const waNumber = `${import.meta.env.VITE_wsnum}`;
+<<<<<<< HEAD
   const igLink = "https://instagram.com/sakhare553";
+=======
+  const igLink = "https://instagram.com/instylever";
+>>>>>>> 0055769ba8bfec9c2792342ff030d37c181b9822
 
   const images = Array.isArray(image) ? image : image ? [image] : [];
   const videos = Array.isArray(video) ? video : video ? [video] : [];
