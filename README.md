@@ -1,8 +1,8 @@
 # 👜 Bagnest
 
-![]([https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white](https://github.com/Soham553/BagNest-Frontend/blob/main/src/assets/Screenshot%202026-05-11%20144203.png))
-![]([https://img.shields.io/badge/TailwindCSS-4.x-38BDF8?logo=tailwindcss&logoColor=white](https://github.com/Soham553/BagNest-Frontend/blob/main/src/assets/Screenshot%202026-05-11%20144223.png))
-![Amin panel]([https://img.shields.io/badge/Vite-Build%20Tool-646CFF?logo=vite&logoColor=white](https://github.com/Soham553/BagNest-Frontend/blob/main/src/assets/Screenshot%202026-05-11%20144241.png))
+![](https://github.com/Soham553/BagNest-Frontend/blob/main/src/assets/Screenshot%202026-05-11%20144203.png)
+![](https://github.com/Soham553/BagNest-Frontend/blob/main/src/assets/Screenshot%202026-05-11%20144223.png)
+![Amin panel](https://github.com/Soham553/BagNest-Frontend/blob/main/src/assets/Screenshot%202026-05-11%20144241.png)
 ![](https://github.com/Soham553/BagNest-Frontend/blob/main/src/assets/Screenshot%202026-05-11%20144255.png)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
